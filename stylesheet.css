@@ -26,7 +26,7 @@ footer{
 article{
   font-size: 38px;
   color: white;
-  background-color:rgb(0, 0, 0, 0.7);
+  background-color:rgba(0, 0, 0, 0.7);
   text-align: justify;
   padding: 12px;
 }
@@ -34,7 +34,6 @@ article{
 nav{
   margin-top: 1%;
   height: 150px;
-
 }
 
 nav ul{
@@ -199,12 +198,14 @@ hr{
   height: 100%;
   object-fit: cover;
 }
+
 .carouselTrackContainer{
   background: black;
   height: 100%;
   position: relative;
   overflow: hidden;
 }
+
 .carouselTrack{
   padding: 0;
   margin: 0;
@@ -267,8 +268,8 @@ hr{
 
 .container{
   width: 1400px;
-  height: 100%;
-  background-color:rgb(0, 0, 0, 0.7);
+  height: fit-content;
+  background-color:rgba(0, 0, 0, 0.7);
   margin: 0 auto;
   margin-bottom: 100px;
 }
@@ -347,15 +348,10 @@ body{
 article{
   font-size: 38px;
   color: white;
-  background-color:rgb(0, 0, 0, 0.7);
+  background-color:rgba(0, 0, 0, 0.7);
   text-align: justify;
   padding: 12px;
   border-radius: 16px;
-}
-
-nav{
-  margin-top: 1%;
-  height: 150px;
 }
 
 nav ul{
@@ -363,40 +359,6 @@ nav ul{
   width: 40%;
   list-style-type: none;
   margin-top: 40px;
-}
-
-nav ul li{
-  margin-top: 30px;
-  margin-left: 5%;
-  float:left;
-  width: auto;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-a{
-  text-decoration: none;
-  color: white;
-}
-
-#header{
-  margin-top: 20px;
-}
-
-#logo{
-  width: 120px;
-  height: 120px;
-  float: left;
-  margin-left: 50px;
-  border-radius: 0%;
-}
-
-#dietSec, #travelSec{
-  clear: both;
-  margin: 0 auto;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  height: 706px;
 }
 
 h1, h3{
@@ -431,14 +393,6 @@ h2{
   border-radius: 16px;
 }
 
-#shoppingSec{
-  clear: both;
-  margin: 0 auto;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  height: 706px;
-}
-
 #shoppingImg{
   width: 500px;
   height: 500px;
@@ -470,77 +424,12 @@ h2{
   border-radius: 16px;
 }
 
-.floatingArtImg{
-  Height:500px;
-  Width:500px;
-  display: block;
-  clear: both;
-  margin:1%;
-  margin-left: auto;
-  margin-right: auto;
-  border: solid 3px black;
-}
-
-hr{
-  border: 2px solid white;
-  border-radius: 5px;
-  margin: 14px
-}
-
 .carousel{
   position: relative;
   height: 800px;
   width: 80%;
   margin: 0 auto;
   padding-bottom: 100px;
-}
-
-.carouselImage{
-  width:100%;
-  height: 100%;
-  object-fit: cover;
-}
-.carouselTrackContainer{
-  background: black;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-.carouselTrack{
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  position: relative;
-  height: 100%;
-  transition: transform 250ms ease-in;
-}
-
-.carouselSlide{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-}
-
-.carouselButton{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: white;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.carouselButtonLeft{
-  left:-40px;
-}
-
-.carouselButtonRight{
-  right: -40px
-}
-
-.carouselButton img{
-  width:30px;
 }
 
 .carouselNav{
@@ -552,69 +441,12 @@ hr{
   margin: 0 auto;
 }
 
-.carouselIndicator{
-  border: 0;
-  border-radius: 50%;
-  width: 20px;
-  height:20px;
-  background:rgba(0, 0, 0, 0.3);
-  margin: 0 12px;
-  cursor: pointer;
-}
-
-.carouselIndicator.currentSlide{
-  background: rgba(0, 0, 0, 0.75)
-}
-
 .container{
   width: 800px;
-  height: 100%;
-  background-color:rgb(0, 0, 0, 0.7);
+  height: fit-content;
+  background-color:rgba(0, 0, 0, 0.7);
   margin: 0 auto;
   margin-bottom: 100px;
-}
-
-.youtubeArticle{
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  clear: both;
-  margin: 4px;
-  margin-bottom: 10px;
-  border: 2px solid white;
-  border-radius: 8px;
-}
-
-.youtubeArticle:hover{
-  border: 2px solid grey;
-  cursor: pointer;
-}
-
-h40{
-  padding: 0;
-  margin: 0;
-  line-height: 1.3;
-  font-weight: 600;
-  color: white;
-}
-
-p40{
-  padding: 0;
-  margin: 0;
-  line-height: 1.3;
-  font-weight: 600;
-  display: block;
-  color: lightgray;
-  font-size: 0.8rem;
-}
-
-.thumb{
-  height: 70px;
-  border-radius: 4px;
-}
-
-.details{
-  padding: 8px 22px;
 }
 
 section{
@@ -647,15 +479,6 @@ body{
   background-attachment: fixed;
 }
 
-article{
-  font-size: 38px;
-  color: white;
-  background-color:rgb(0, 0, 0, 0.7);
-  text-align: justify;
-  padding: 12px;
-  border-radius: 16px;
-}
-
 nav{
   margin-top: 1%;
   height: 300px;
@@ -678,15 +501,6 @@ nav ul li{
   font-weight: bold;
 }
 
-a{
-  text-decoration: none;
-  color: white;
-}
-
-#header{
-  margin-top: 20px;
-}
-
 #logo{
   width: 120px;
   height: 120px;
@@ -694,21 +508,6 @@ a{
   margin-left: 50%;
   transform: translateX(-50%);
   border-radius: 0%;
-}
-
-#dietSec, #travelSec{
-  clear: both;
-  margin: 0 auto;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  height: 706px;
-}
-
-h4{
-  text-align: center;
-  display: block;
-  font-size: 45px;
-  font-weight: bold;
 }
 
 h1, h3{
@@ -746,14 +545,6 @@ h2{
   border-radius: 16px;
 }
 
-#shoppingSec{
-  clear: both;
-  margin: 0 auto;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  height: 706px;
-}
-
 #shoppingImg{
   width: 250px;
   height: 250px;
@@ -788,23 +579,6 @@ h2{
   border-radius: 16px;
 }
 
-.floatingArtImg{
-  Height:500px;
-  Width:500px;
-  display: block;
-  clear: both;
-  margin:1%;
-  margin-left: auto;
-  margin-right: auto;
-  border: solid 3px black;
-}
-
-hr{
-  border: 2px solid white;
-  border-radius: 5px;
-  margin: 14px
-}
-
 .carousel{
   display: block;
   top: 100px;
@@ -813,54 +587,6 @@ hr{
   width: 90%;
   margin: 0 auto;
   clear: both; 
-}
-
-.carouselImage{
-  width:100%;
-  height: 100%;
-  object-fit: cover;
-}
-.carouselTrackContainer{
-  background: black;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-.carouselTrack{
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  position: relative;
-  height: 100%;
-  transition: transform 250ms ease-in;
-}
-
-.carouselSlide{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-}
-
-.carouselButton{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: white;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.carouselButtonLeft{
-  left:-40px;
-}
-
-.carouselButtonRight{
-  right: -40px
-}
-
-.carouselButton img{
-  width:30px;
 }
 
 .carouselNav{
@@ -872,69 +598,12 @@ hr{
   margin: 0 auto; 
 }
 
-.carouselIndicator{
-  border: 0;
-  border-radius: 50%;
-  width: 20px;
-  height:20px;
-  background:rgba(0, 0, 0, 0.3);
-  margin: 0 12px;
-  cursor: pointer;
-}
-
-.carouselIndicator.currentSlide{
-  background: rgba(0, 0, 0, 0.75)
-}
-
 .container{
   width: 528px;
-  height: 100%;
-  background-color:rgb(0, 0, 0, 0.7);
+  height: fit-content;
+  background-color:rgba(0, 0, 0, 0.7);
   margin: 0 auto;
   margin-bottom: 50px;
-}
-
-.youtubeArticle{
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  clear: both;
-  margin: 4px;
-  margin-bottom: 10px;
-  border: 2px solid white;
-  border-radius: 8px;
-}
-
-.youtubeArticle:hover{
-  border: 2px solid grey;
-  cursor: pointer;
-}
-
-h40{
-  padding: 0;
-  margin: 0;
-  line-height: 1.3;
-  font-weight: 600;
-  color: white;
-}
-
-p40{
-  padding: 0;
-  margin: 0;
-  line-height: 1.3;
-  font-weight: 600;
-  display: block;
-  color: lightgray;
-  font-size: 0.8rem;
-}
-
-.thumb{
-  height: 70px;
-  border-radius: 4px;
-}
-
-.details{
-  padding: 8px 22px;
 }
 
 section{
