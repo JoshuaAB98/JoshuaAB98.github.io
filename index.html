@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARPIA</title>
+    <script src='https://aframe.io/releases/1.0.4/aframe.min.js'></script>
+    <script src="./main.js"></script>
+</head>
+
+<body>
+    <div id='position'></div>
+    <a-scene id="scene1" embedded style='width:1920px; height:1000px; border: 1px solid black'>
+        <a-assets>
+            <a-asset-item src='./assets/coffee-cup.obj' id='coffee-cup'></a-asset-item>
+            <a-asset-item src='./assets/coffee-cup.mtl' id='coffee-cup-material'></a-asset-item>
+            <a-asset-item src='./assets/beer-bottle.obj' id='beer-bottle'></a-asset-item>
+            <a-asset-item src='./assets/beer-bottle.mtl' id='beer-bottle-material'></a-asset-item>
+            <a-asset-item src='./assets/burger.obj' id='burger'></a-asset-item>
+            <a-asset-item src='./assets/burger.mtl' id='burger-material'></a-asset-item>
+        </a-assets>
+        
+        <a-sky color='skyblue'></a-sky>
+        <a-plane position="0 0 -1" rotation="-90 0 0" width="100" height="100" material='color: #7bcba4' shadow></a-plane>
+        <a-entity initfunc></a-entity>
+    </a-scene>
+</body>
+
+</html>
