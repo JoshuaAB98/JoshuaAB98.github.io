@@ -12,7 +12,7 @@
 <body>
     <div id='position'></div>
     <a-scene id="scene1" vr-mode-ui="enabled: true" arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;'
-    renderer='antialias: true; alpha: true'>
+    renderer='antialias: true; alpha: true' embedded style='width:50%; height:600px; border: 1px solid black'>
         <a-assets>
             <a-asset-item src='./assets/coffee-cup.obj' id='coffee-cup'></a-asset-item>
             <a-asset-item src='./assets/coffee-cup-mtl.mtl' id='coffee-cup-mtl'></a-asset-item>
@@ -25,8 +25,8 @@
         <a-camera gps-projected-camera rotation-reader position='0 1.6 0'></a-camera>
         <!-- <a-sky color='skyblue'></a-sky>
         <a-plane position="0 0 -1" rotation="-90 0 0" width="100" height="100" material='color: #7bcba4' shadow></a-plane> -->
-        <a-entity text='value: Hello World' scale='100 100 100' look-at='[gps-projected-camera]' position='0 1.6 0'
-                gps-projected-entity-place='latitude: 50.540; longitude: -2.451'></a-entity>
+        <!-- <a-entity text='value: Hello World' scale='100 100 100' look-at='[gps-projected-camera]' position='0 1.6 0'
+                gps-projected-entity-place='latitude: 50.540; longitude: -2.451'></a-entity> -->
         <a-entity initfunc></a-entity>
     </a-scene>
 </body>
