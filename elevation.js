@@ -29,230 +29,230 @@ AFRAME.registerComponent('initfunc', {
 
             e.detail.pois.forEach(peak => {
 
-                    const entity = document.createElement('a-entity');
-                    const model = document.createElement('a-entity');
+                const entity = document.createElement('a-entity');
+                const model = document.createElement('a-entity');
 
-                    if (peak.properties.featuretype === "unknown" && peak.properties.name != undefined) {
-                        type = "Cafe"
-                        // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
-                    } else if (peak.properties.featuretype == "bar" || peak.properties.featuretype == "pub") {
-                        type = "Bar"
-                        // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
-                    } else if (peak.properties.featuretype == "restaurant") {
-                        type = "Restaurant"
-                        // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
-                    } else {
-                        type = "Unknown"
-                    }
+                if (peak.properties.featuretype === "unknown" && peak.properties.name != undefined) {
+                    type = "Cafe"
+                    // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
+                } else if (peak.properties.featuretype == "bar" || peak.properties.featuretype == "pub") {
+                    type = "Bar"
+                    // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
+                } else if (peak.properties.featuretype == "restaurant") {
+                    type = "Restaurant"
+                    // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
+                } else {
+                    type = "Unknown"
+                }
 
-                    if (type == "Cafe" && peak.properties.name.includes('Cafe')) {
-                        model.setAttribute('obj-model', {
-                            obj: this.models[type][0],
-                            mtl: `${this.models[type][0]}-mtl`
-                        });
-                        model.setAttribute('position', {
-                            x: -2.2,
-                            y: 1,
-                            z: -1.2
-                        });
+                if (type == "Cafe" && peak.properties.name.includes('Cafe')) {
+                    model.setAttribute('obj-model', {
+                        obj: this.models[type][0],
+                        mtl: `${this.models[type][0]}-mtl`
+                    });
+                    model.setAttribute('position', {
+                        x: -2.2,
+                        y: 1,
+                        z: -1.2
+                    });
 
-                        model.setAttribute('scale', {
-                            x: this.models[type][1],
-                            y: this.models[type][1],
-                            z: this.models[type][1]
-                        });
+                    model.setAttribute('scale', {
+                        x: this.models[type][1],
+                        y: this.models[type][1],
+                        z: this.models[type][1]
+                    });
 
-                        const sign = document.createElement('a-plane');
-                        sign.setAttribute('width', 5);
-                        sign.setAttribute('height', 4);
-                        sign.setAttribute('look-at', '[camera]');
-                        sign.setAttribute('material', {
-                            color: 'black'
-                        });
-                        sign.setAttribute('position', {
-                            x: 0,
-                            y: 4,
-                            z: 0
-                        });
+                    const sign = document.createElement('a-plane');
+                    sign.setAttribute('width', 5);
+                    sign.setAttribute('height', 4);
+                    sign.setAttribute('look-at', '[camera]');
+                    sign.setAttribute('material', {
+                        color: 'black'
+                    });
+                    sign.setAttribute('position', {
+                        x: 0,
+                        y: 4,
+                        z: 0
+                    });
 
-                        sign.setAttribute('text', {
-                            value: peak.properties.name + "\n" + type,
-                            wrapCount: 10,
-                            baseline: 'center'
-                        });
+                    sign.setAttribute('text', {
+                        value: peak.properties.name + "\n" + type,
+                        wrapCount: 10,
+                        baseline: 'center'
+                    });
 
-                        entity.setAttribute('gps-projected-entity-place', {
-                            latitude: peak.geometry.coordinates[1],
-                            longitude: peak.geometry.coordinates[0]
-                        });
+                    entity.setAttribute('gps-projected-entity-place', {
+                        latitude: peak.geometry.coordinates[1],
+                        longitude: peak.geometry.coordinates[0]
+                    });
 
-                        entity.setAttribute('elevation', peak.geometry.coordinates[2])
+                    entity.setAttribute('elevation', peak.geometry.coordinates[2])
 
-                        entity.setAttribute('scale', {
-                            x: 10,
-                            y: 10,
-                            z: 10
-                        });
+                    entity.setAttribute('scale', {
+                        x: 10,
+                        y: 10,
+                        z: 10
+                    });
 
-                        entity.setAttribute('position', {
-                            y: peak.geometry.coordinates[2]
-                        });
+                    entity.setAttribute('position', {
+                        y: peak.geometry.coordinates[2]
+                    });
 
-                        entity.appendChild(model);
-                        entity.appendChild(sign);
+                    entity.appendChild(model);
+                    entity.appendChild(sign);
 
-                        entity.addEventListener('click', e => {
-                            if (peak.properties.website != undefined) {
-                                win = window.open(peak.properties.website);
-                                win.focus();
-                            }
-                            else {
-                                alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
-                            }
-                        });
+                    entity.addEventListener('click', e => {
+                        if (peak.properties.website != undefined) {
+                            win = window.open(peak.properties.website);
+                            win.focus();
+                        }
+                        else {
+                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                        }
+                    });
 
-                        console.log(entity.getDOMAttribute('gps-projected-entity-place'))
+                    console.log(entity.getDOMAttribute('gps-projected-entity-place'))
 
-                        this.el.sceneEl.appendChild(entity);
-                    }
+                    this.el.sceneEl.appendChild(entity);
+                }
 
-                    else if (type == "Restaurant" && peak.properties.name != undefined) {
-                        model.setAttribute('obj-model', {
-                            obj: this.models[type][0],
-                            mtl: `${this.models[type][0]}-mtl`
-                        });
-                        model.setAttribute('scale', {
-                            x: this.models[type][1],
-                            y: this.models[type][1],
-                            z: this.models[type][1]
-                        });
+                else if (type == "Restaurant" && peak.properties.name != undefined) {
+                    model.setAttribute('obj-model', {
+                        obj: this.models[type][0],
+                        mtl: `${this.models[type][0]}-mtl`
+                    });
+                    model.setAttribute('scale', {
+                        x: this.models[type][1],
+                        y: this.models[type][1],
+                        z: this.models[type][1]
+                    });
 
-                        model.setAttribute('position', {
-                            y: -1.6
-                        });
+                    model.setAttribute('position', {
+                        y: -1.6
+                    });
 
-                        const sign = document.createElement('a-plane');
-                        sign.setAttribute('width', 5);
-                        sign.setAttribute('height', 4);
-                        sign.setAttribute('look-at', '[camera]');
-                        sign.setAttribute('material', {
-                            color: 'black'
-                        });
-                        sign.setAttribute('position', {
-                            x: 0,
-                            y: 4,
-                            z: 0
-                        });
+                    const sign = document.createElement('a-plane');
+                    sign.setAttribute('width', 5);
+                    sign.setAttribute('height', 4);
+                    sign.setAttribute('look-at', '[camera]');
+                    sign.setAttribute('material', {
+                        color: 'black'
+                    });
+                    sign.setAttribute('position', {
+                        x: 0,
+                        y: 4,
+                        z: 0
+                    });
 
-                        sign.setAttribute('text', {
-                            value: peak.properties.name + "\n" + type,
-                            wrapCount: 10,
-                            baseline: 'center'
-                        });
+                    sign.setAttribute('text', {
+                        value: peak.properties.name + "\n" + type,
+                        wrapCount: 10,
+                        baseline: 'center'
+                    });
 
-                        entity.setAttribute('gps-projected-entity-place', {
-                            latitude: peak.geometry.coordinates[1],
-                            longitude: peak.geometry.coordinates[0]
-                        });
+                    entity.setAttribute('gps-projected-entity-place', {
+                        latitude: peak.geometry.coordinates[1],
+                        longitude: peak.geometry.coordinates[0]
+                    });
 
-                        entity.setAttribute('scale', {
-                            x: 10,
-                            y: 10,
-                            z: 10
-                        });
+                    entity.setAttribute('scale', {
+                        x: 10,
+                        y: 10,
+                        z: 10
+                    });
 
-                        entity.setAttribute('position', {
-                            y: peak.geometry.coordinates[2]
-                        });
+                    entity.setAttribute('position', {
+                        y: peak.geometry.coordinates[2]
+                    });
 
-                        entity.appendChild(model);
-                        entity.appendChild(sign);
+                    entity.appendChild(model);
+                    entity.appendChild(sign);
 
-                        entity.addEventListener('click', e => {
-                            if (peak.properties.website != undefined) {
-                                win = window.open(peak.properties.website);
-                                win.focus();
-                            }
-                            else {
-                                alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
-                            }
-                        });
+                    entity.addEventListener('click', e => {
+                        if (peak.properties.website != undefined) {
+                            win = window.open(peak.properties.website);
+                            win.focus();
+                        }
+                        else {
+                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                        }
+                    });
 
-                        console.log(entity.getDOMAttribute('gps-projected-entity-place'))
+                    console.log(entity.getDOMAttribute('gps-projected-entity-place'))
 
-                        this.el.sceneEl.appendChild(entity);
-                    }
+                    this.el.sceneEl.appendChild(entity);
+                }
 
-                    else if (type == "Bar" && peak.properties.name != undefined) {
-                        model.setAttribute('obj-model', {
-                            obj: this.models["Bar"][0],
-                            mtl: `${this.models["Bar"][0]}-mtl`
-                        });
-                        model.setAttribute('position', {
-                            y: 0
-                        });
-                        model.setAttribute('scale', {
-                            x: this.models["Bar"][1],
-                            y: this.models["Bar"][1],
-                            z: this.models["Bar"][1]
-                        });
+                else if (type == "Bar" && peak.properties.name != undefined) {
+                    model.setAttribute('obj-model', {
+                        obj: this.models["Bar"][0],
+                        mtl: `${this.models["Bar"][0]}-mtl`
+                    });
+                    model.setAttribute('position', {
+                        y: 0
+                    });
+                    model.setAttribute('scale', {
+                        x: this.models["Bar"][1],
+                        y: this.models["Bar"][1],
+                        z: this.models["Bar"][1]
+                    });
 
-                        const sign = document.createElement('a-plane');
-                        sign.setAttribute('width', 5);
-                        sign.setAttribute('height', 4);
-                        sign.setAttribute('look-at', '[camera]');
-                        sign.setAttribute('material', {
-                            color: 'black'
-                        });
-                        sign.setAttribute('position', {
-                            x: 0,
-                            y: 4,
-                            z: 0
-                        });
+                    const sign = document.createElement('a-plane');
+                    sign.setAttribute('width', 5);
+                    sign.setAttribute('height', 4);
+                    sign.setAttribute('look-at', '[camera]');
+                    sign.setAttribute('material', {
+                        color: 'black'
+                    });
+                    sign.setAttribute('position', {
+                        x: 0,
+                        y: 4,
+                        z: 0
+                    });
 
-                        sign.setAttribute('text', {
-                            value: peak.properties.name + "\n" + type,
-                            wrapCount: 10,
-                            baseline: 'center'
-                        });
+                    sign.setAttribute('text', {
+                        value: peak.properties.name + "\n" + type,
+                        wrapCount: 10,
+                        baseline: 'center'
+                    });
 
-                        entity.setAttribute('gps-projected-entity-place', {
-                            latitude: peak.geometry.coordinates[1],
-                            longitude: peak.geometry.coordinates[0]
-                        });
+                    entity.setAttribute('gps-projected-entity-place', {
+                        latitude: peak.geometry.coordinates[1],
+                        longitude: peak.geometry.coordinates[0]
+                    });
 
-                        entity.setAttribute('scale', {
-                            x: 10,
-                            y: 10,
-                            z: 10
-                        });
+                    entity.setAttribute('scale', {
+                        x: 10,
+                        y: 10,
+                        z: 10
+                    });
 
-                        entity.setAttribute('position', {
-                            y: peak.geometry.coordinates[2]
-                        });
+                    entity.setAttribute('position', {
+                        y: peak.geometry.coordinates[2]
+                    });
 
-                        entity.appendChild(model);
-                        entity.appendChild(sign);
+                    entity.appendChild(model);
+                    entity.appendChild(sign);
 
-                        entity.addEventListener('click', e => {
-                            if (peak.properties.website != undefined) {
-                                win = window.open(peak.properties.website);
-                                win.focus();
-                            }
-                            else {
-                                alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
-                            }
-                        });
+                    entity.addEventListener('click', e => {
+                        if (peak.properties.website != undefined) {
+                            win = window.open(peak.properties.website);
+                            win.focus();
+                        }
+                        else {
+                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                        }
+                    });
 
-                        console.log(entity.getDOMAttribute('gps-projected-entity-place'))
+                    console.log(entity.getDOMAttribute('gps-projected-entity-place'))
 
-                        this.el.sceneEl.appendChild(entity);
-                    }
+                    this.el.sceneEl.appendChild(entity);
+                }
 
-                    else {
-                        // console.log("Type " + type + " Name " + obj.properties.name)
-                    }
-                });
+                else {
+                    // console.log("Type " + type + " Name " + obj.properties.name)
+                }
+            });
         });
     }
 });
