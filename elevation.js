@@ -34,13 +34,10 @@ AFRAME.registerComponent('initfunc', {
 
                 if (peak.properties.featuretype === "unknown" && peak.properties.name != undefined) {
                     type = "Cafe"
-                    // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
                 } else if (peak.properties.featuretype == "bar" || peak.properties.featuretype == "pub") {
                     type = "Bar"
-                    // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
                 } else if (peak.properties.featuretype == "restaurant") {
                     type = "Restaurant"
-                    // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
                 } else {
                     type = "Unknown"
                 }
@@ -107,7 +104,7 @@ AFRAME.registerComponent('initfunc', {
                             win.focus();
                         }
                         else {
-                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                            alert("No website available...")
                         }
                     });
 
@@ -174,7 +171,7 @@ AFRAME.registerComponent('initfunc', {
                             win.focus();
                         }
                         else {
-                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                            alert("No website available...")
                         }
                     });
 
@@ -240,7 +237,7 @@ AFRAME.registerComponent('initfunc', {
                             win.focus();
                         }
                         else {
-                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                            alert("No website available...")
                         }
                     });
 
