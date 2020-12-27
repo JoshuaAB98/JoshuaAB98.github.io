@@ -1,34 +1,51 @@
+require('aframe-osm-3d');
+
 AFRAME.registerComponent('initfunc', {
+
     init: async function () {
-        this.loaded = false;
-        window.addEventListener('gps-camera-update-position', async (e) => {
-            if (this.loaded === false) {
-                this.loaded = true;
 
-                this.models = {
-                    Cafe: ['#coffee-cup', 15],
-                    Bar: ['#beer-bottle', 0.3],
-                    Restaurant: ['#burger', 0.02]
-                };
+        console.log("Stage 1")
 
-                const res = await fetch(`https://www.hikar.org/fm/ws/bsvr.php?bbox=${e.detail.position.longitude - 0.01},${e.detail.position.latitude - 0.01},${e.detail.position.longitude + 0.01},${e.detail.position.latitude + 0.01}&outProj=4326&format=json&poi=all`);
-                const json = await res.json();
+        window.addEventListener('gps-camera-update-position', e => {
+            this.el.setAttribute('terrarium-dem', {
+                lat: e.detail.position.latitude,
+                lon: e.detail.position.longitude
+            })
+        });
 
-                json.features.forEach(obj => {
+        this.el.addEventListener('elevation-available', e => {
+            camera = document.getElementById("camera")
+            camera.object3D.position.y = e.detail.elevation + 1.6;
+        });
+
+        this.el.addEventListener('osm-data-loaded', e => {
+            this.models = {
+                Cafe: ['#coffee-cup', 15],
+                Bar: ['#beer-bottle', 0.3],
+                Restaurant: ['#burger', 0.02]
+            };
+
+            console.log("Stage 2")
+
+            e.detail.pois.forEach(peak => {
+
                     const entity = document.createElement('a-entity');
                     const model = document.createElement('a-entity');
 
-                    if (obj.properties.featuretype === "unknown" && obj.properties.name != undefined) {
+                    if (peak.properties.featuretype === "unknown" && peak.properties.name != undefined) {
                         type = "Cafe"
-                    } else if (obj.properties.featuretype == "bar" || obj.properties.featuretype == "pub") {
+                        // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
+                    } else if (peak.properties.featuretype == "bar" || peak.properties.featuretype == "pub") {
                         type = "Bar"
-                    } else if (obj.properties.featuretype == "restaurant") {
+                        // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
+                    } else if (peak.properties.featuretype == "restaurant") {
                         type = "Restaurant"
+                        // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
                     } else {
                         type = "Unknown"
                     }
 
-                    if (type == "Cafe" && obj.properties.name.includes('Cafe')) {
+                    if (type == "Cafe" && peak.properties.name.includes('Cafe')) {
                         model.setAttribute('obj-model', {
                             obj: this.models[type][0],
                             mtl: `${this.models[type][0]}-mtl`
@@ -59,15 +76,17 @@ AFRAME.registerComponent('initfunc', {
                         });
 
                         sign.setAttribute('text', {
-                            value: obj.properties.name + "\n" + type,
+                            value: peak.properties.name + "\n" + type,
                             wrapCount: 10,
                             baseline: 'center'
                         });
 
                         entity.setAttribute('gps-projected-entity-place', {
-                            latitude: obj.geometry.coordinates[1],
-                            longitude: obj.geometry.coordinates[0]
+                            latitude: peak.geometry.coordinates[1],
+                            longitude: peak.geometry.coordinates[0]
                         });
+
+                        entity.setAttribute('elevation', peak.geometry.coordinates[2])
 
                         entity.setAttribute('scale', {
                             x: 10,
@@ -75,23 +94,29 @@ AFRAME.registerComponent('initfunc', {
                             z: 10
                         });
 
+                        entity.setAttribute('position', {
+                            y: peak.geometry.coordinates[2]
+                        });
+
                         entity.appendChild(model);
                         entity.appendChild(sign);
 
                         entity.addEventListener('click', e => {
-                            if (obj.properties.website != undefined) {
-                                win = window.open(obj.properties.website);
+                            if (peak.properties.website != undefined) {
+                                win = window.open(peak.properties.website);
                                 win.focus();
                             }
                             else {
-                                alert("No website available...")
+                                alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
                             }
                         });
+
+                        console.log(entity.getDOMAttribute('gps-projected-entity-place'))
 
                         this.el.sceneEl.appendChild(entity);
                     }
 
-                    else if (type == "Restaurant" && obj.properties.name != undefined) {
+                    else if (type == "Restaurant" && peak.properties.name != undefined) {
                         model.setAttribute('obj-model', {
                             obj: this.models[type][0],
                             mtl: `${this.models[type][0]}-mtl`
@@ -120,14 +145,14 @@ AFRAME.registerComponent('initfunc', {
                         });
 
                         sign.setAttribute('text', {
-                            value: obj.properties.name + "\n" + type,
+                            value: peak.properties.name + "\n" + type,
                             wrapCount: 10,
                             baseline: 'center'
                         });
 
                         entity.setAttribute('gps-projected-entity-place', {
-                            latitude: obj.geometry.coordinates[1],
-                            longitude: obj.geometry.coordinates[0]
+                            latitude: peak.geometry.coordinates[1],
+                            longitude: peak.geometry.coordinates[0]
                         });
 
                         entity.setAttribute('scale', {
@@ -136,23 +161,29 @@ AFRAME.registerComponent('initfunc', {
                             z: 10
                         });
 
+                        entity.setAttribute('position', {
+                            y: peak.geometry.coordinates[2]
+                        });
+
                         entity.appendChild(model);
                         entity.appendChild(sign);
 
                         entity.addEventListener('click', e => {
-                            if (obj.properties.website != undefined) {
-                                win = window.open(obj.properties.website);
+                            if (peak.properties.website != undefined) {
+                                win = window.open(peak.properties.website);
                                 win.focus();
                             }
                             else {
-                                alert("No website available...")
+                                alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
                             }
                         });
+
+                        console.log(entity.getDOMAttribute('gps-projected-entity-place'))
 
                         this.el.sceneEl.appendChild(entity);
                     }
 
-                    else if (type == "Bar" && obj.properties.name != undefined) {
+                    else if (type == "Bar" && peak.properties.name != undefined) {
                         model.setAttribute('obj-model', {
                             obj: this.models["Bar"][0],
                             mtl: `${this.models["Bar"][0]}-mtl`
@@ -180,14 +211,14 @@ AFRAME.registerComponent('initfunc', {
                         });
 
                         sign.setAttribute('text', {
-                            value: obj.properties.name + "\n" + type,
+                            value: peak.properties.name + "\n" + type,
                             wrapCount: 10,
                             baseline: 'center'
                         });
 
                         entity.setAttribute('gps-projected-entity-place', {
-                            latitude: obj.geometry.coordinates[1],
-                            longitude: obj.geometry.coordinates[0]
+                            latitude: peak.geometry.coordinates[1],
+                            longitude: peak.geometry.coordinates[0]
                         });
 
                         entity.setAttribute('scale', {
@@ -196,18 +227,24 @@ AFRAME.registerComponent('initfunc', {
                             z: 10
                         });
 
+                        entity.setAttribute('position', {
+                            y: peak.geometry.coordinates[2]
+                        });
+
                         entity.appendChild(model);
                         entity.appendChild(sign);
 
                         entity.addEventListener('click', e => {
-                            if (obj.properties.website != undefined) {
-                                win = window.open(obj.properties.website);
+                            if (peak.properties.website != undefined) {
+                                win = window.open(peak.properties.website);
                                 win.focus();
                             }
                             else {
-                                alert("No website available...")
+                                alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
                             }
                         });
+
+                        console.log(entity.getDOMAttribute('gps-projected-entity-place'))
 
                         this.el.sceneEl.appendChild(entity);
                     }
@@ -216,8 +253,7 @@ AFRAME.registerComponent('initfunc', {
                         // console.log("Type " + type + " Name " + obj.properties.name)
                     }
                 });
-            }
-        })
+        });
     }
 });
 
