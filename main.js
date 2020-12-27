@@ -23,6 +23,8 @@ AFRAME.registerComponent('initfunc', {
                 Restaurant: ['#burger', 0.02]
             };
 
+            numberofpois = 0
+
             e.detail.pois.forEach(peak => {
 
                 const entity = document.createElement('a-entity');
@@ -107,6 +109,7 @@ AFRAME.registerComponent('initfunc', {
                         }
                     });
 
+                    numberofpois++
                     this.el.sceneEl.appendChild(entity);
                 }
 
@@ -172,6 +175,7 @@ AFRAME.registerComponent('initfunc', {
                         }
                     });
 
+                    numberofpois++
                     this.el.sceneEl.appendChild(entity);
                 }
 
@@ -236,12 +240,15 @@ AFRAME.registerComponent('initfunc', {
                         }
                     });
 
+                    numberofpois++
                     this.el.sceneEl.appendChild(entity);
                 }
 
                 else {
                     // console.log("Type " + type + " Name " + obj.properties.name)
                 }
+
+                console.log(numberofpois)
             });
         });
     }
