@@ -1,223 +1,249 @@
+require('aframe-osm-3d');
+
 AFRAME.registerComponent('initfunc', {
+
     init: async function () {
-        this.loaded = false;
-        window.addEventListener('gps-camera-update-position', async (e) => {
-            if (this.loaded === false) {
-                this.loaded = true;
 
-                this.models = {
-                    Cafe: ['#coffee-cup', 15],
-                    Bar: ['#beer-bottle', 0.3],
-                    Restaurant: ['#burger', 0.02]
-                };
+        window.addEventListener('gps-camera-update-position', e => {
+            this.el.setAttribute('terrarium-dem', {
+                lat: e.detail.position.latitude,
+                lon: e.detail.position.longitude
+            })
+        });
 
-                const res = await fetch(`https://www.hikar.org/fm/ws/bsvr.php?bbox=${e.detail.position.longitude - 0.01},${e.detail.position.latitude - 0.01},${e.detail.position.longitude + 0.01},${e.detail.position.latitude + 0.01}&outProj=4326&format=json&poi=all`);
-                const json = await res.json();
+        this.el.addEventListener('elevation-available', e => {
+            camera = document.getElementById("camera")
+            camera.object3D.position.y = e.detail.elevation + 1.6;
+        });
 
-                json.features.forEach(obj => {
-                    const entity = document.createElement('a-entity');
-                    const model = document.createElement('a-entity');
+        this.el.addEventListener('osm-data-loaded', e => {
+            this.models = {
+                Cafe: ['#coffee-cup', 15],
+                Bar: ['#beer-bottle', 0.3],
+                Restaurant: ['#burger', 0.02]
+            };
 
-                    if (obj.properties.featuretype === "unknown" && obj.properties.name != undefined) {
-                        type = "Cafe"
-                    } else if (obj.properties.featuretype == "bar" || obj.properties.featuretype == "pub") {
-                        type = "Bar"
-                    } else if (obj.properties.featuretype == "restaurant") {
-                        type = "Restaurant"
-                    } else {
-                        type = "Unknown"
-                    }
+            e.detail.pois.forEach(peak => {
 
-                    if (type == "Cafe" && obj.properties.name.includes('Cafe')) {
-                        model.setAttribute('obj-model', {
-                            obj: this.models[type][0],
-                            mtl: `${this.models[type][0]}-mtl`
-                        });
-                        model.setAttribute('position', {
-                            x: -2.2,
-                            y: 1,
-                            z: -1.2
-                        });
+                const entity = document.createElement('a-entity');
+                const model = document.createElement('a-entity');
 
-                        model.setAttribute('scale', {
-                            x: this.models[type][1],
-                            y: this.models[type][1],
-                            z: this.models[type][1]
-                        });
+                if (peak.properties.featuretype === "unknown" && peak.properties.name != undefined) {
+                    type = "Cafe"
+                    // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
+                } else if (peak.properties.featuretype == "bar" || peak.properties.featuretype == "pub") {
+                    type = "Bar"
+                    // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
+                } else if (peak.properties.featuretype == "restaurant") {
+                    type = "Restaurant"
+                    // console.log("Name " + peak.properties.name + " Lat " + peak.geometry.coordinates[1] + " Lon " + peak.geometry.coordinates[0] + " Elevation " + peak.geometry.coordinates[2])
+                } else {
+                    type = "Unknown"
+                }
 
-                        const sign = document.createElement('a-plane');
-                        sign.setAttribute('width', 5);
-                        sign.setAttribute('height', 4);
-                        sign.setAttribute('look-at', '[camera]');
-                        sign.setAttribute('material', {
-                            color: 'black'
-                        });
-                        sign.setAttribute('position', {
-                            x: 0,
-                            y: 4,
-                            z: 0
-                        });
+                if (type == "Cafe" && peak.properties.name.includes('Cafe')) {
+                    model.setAttribute('obj-model', {
+                        obj: this.models[type][0],
+                        mtl: `${this.models[type][0]}-mtl`
+                    });
+                    model.setAttribute('position', {
+                        x: -2.2,
+                        y: 1,
+                        z: -1.2
+                    });
 
-                        sign.setAttribute('text', {
-                            value: obj.properties.name + "\n" + type,
-                            wrapCount: 10,
-                            baseline: 'center'
-                        });
+                    model.setAttribute('scale', {
+                        x: this.models[type][1],
+                        y: this.models[type][1],
+                        z: this.models[type][1]
+                    });
 
-                        entity.setAttribute('gps-projected-entity-place', {
-                            latitude: obj.geometry.coordinates[1],
-                            longitude: obj.geometry.coordinates[0]
-                        });
+                    const sign = document.createElement('a-plane');
+                    sign.setAttribute('width', 5);
+                    sign.setAttribute('height', 4);
+                    sign.setAttribute('look-at', '[camera]');
+                    sign.setAttribute('material', {
+                        color: 'black'
+                    });
+                    sign.setAttribute('position', {
+                        x: 0,
+                        y: 4,
+                        z: 0
+                    });
 
-                        entity.setAttribute('scale', {
-                            x: 10,
-                            y: 10,
-                            z: 10
-                        });
+                    sign.setAttribute('text', {
+                        value: peak.properties.name + "\n" + type,
+                        wrapCount: 10,
+                        baseline: 'center'
+                    });
 
-                        entity.appendChild(model);
-                        entity.appendChild(sign);
+                    entity.setAttribute('gps-projected-entity-place', {
+                        latitude: peak.geometry.coordinates[1],
+                        longitude: peak.geometry.coordinates[0]
+                    });
 
-                        entity.addEventListener('click', e => {
-                            if (obj.properties.website != undefined) {
-                                win = window.open(obj.properties.website);
-                                win.focus();
-                            }
-                            else {
-                                alert("No website available...")
-                            }
-                        });
+                    entity.setAttribute('elevation', peak.geometry.coordinates[2])
 
-                        this.el.sceneEl.appendChild(entity);
-                    }
+                    entity.setAttribute('scale', {
+                        x: 10,
+                        y: 10,
+                        z: 10
+                    });
 
-                    else if (type == "Restaurant" && obj.properties.name != undefined) {
-                        model.setAttribute('obj-model', {
-                            obj: this.models[type][0],
-                            mtl: `${this.models[type][0]}-mtl`
-                        });
-                        model.setAttribute('scale', {
-                            x: this.models[type][1],
-                            y: this.models[type][1],
-                            z: this.models[type][1]
-                        });
+                    entity.setAttribute('position', {
+                        y: peak.geometry.coordinates[2]
+                    });
 
-                        model.setAttribute('position', {
-                            y: -1.6
-                        });
+                    entity.appendChild(model);
+                    entity.appendChild(sign);
 
-                        const sign = document.createElement('a-plane');
-                        sign.setAttribute('width', 5);
-                        sign.setAttribute('height', 4);
-                        sign.setAttribute('look-at', '[camera]');
-                        sign.setAttribute('material', {
-                            color: 'black'
-                        });
-                        sign.setAttribute('position', {
-                            x: 0,
-                            y: 4,
-                            z: 0
-                        });
+                    entity.addEventListener('click', e => {
+                        if (peak.properties.website != undefined) {
+                            win = window.open(peak.properties.website);
+                            win.focus();
+                        }
+                        else {
+                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                        }
+                    });
 
-                        sign.setAttribute('text', {
-                            value: obj.properties.name + "\n" + type,
-                            wrapCount: 10,
-                            baseline: 'center'
-                        });
+                    this.el.sceneEl.appendChild(entity);
+                }
 
-                        entity.setAttribute('gps-projected-entity-place', {
-                            latitude: obj.geometry.coordinates[1],
-                            longitude: obj.geometry.coordinates[0]
-                        });
+                else if (type == "Restaurant" && peak.properties.name != undefined) {
+                    model.setAttribute('obj-model', {
+                        obj: this.models[type][0],
+                        mtl: `${this.models[type][0]}-mtl`
+                    });
+                    model.setAttribute('scale', {
+                        x: this.models[type][1],
+                        y: this.models[type][1],
+                        z: this.models[type][1]
+                    });
 
-                        entity.setAttribute('scale', {
-                            x: 10,
-                            y: 10,
-                            z: 10
-                        });
+                    model.setAttribute('position', {
+                        y: -1.6
+                    });
 
-                        entity.appendChild(model);
-                        entity.appendChild(sign);
+                    const sign = document.createElement('a-plane');
+                    sign.setAttribute('width', 5);
+                    sign.setAttribute('height', 4);
+                    sign.setAttribute('look-at', '[camera]');
+                    sign.setAttribute('material', {
+                        color: 'black'
+                    });
+                    sign.setAttribute('position', {
+                        x: 0,
+                        y: 4,
+                        z: 0
+                    });
 
-                        entity.addEventListener('click', e => {
-                            if (obj.properties.website != undefined) {
-                                win = window.open(obj.properties.website);
-                                win.focus();
-                            }
-                            else {
-                                alert("No website available...")
-                            }
-                        });
+                    sign.setAttribute('text', {
+                        value: peak.properties.name + "\n" + type,
+                        wrapCount: 10,
+                        baseline: 'center'
+                    });
 
-                        this.el.sceneEl.appendChild(entity);
-                    }
+                    entity.setAttribute('gps-projected-entity-place', {
+                        latitude: peak.geometry.coordinates[1],
+                        longitude: peak.geometry.coordinates[0]
+                    });
 
-                    else if (type == "Bar" && obj.properties.name != undefined) {
-                        model.setAttribute('obj-model', {
-                            obj: this.models["Bar"][0],
-                            mtl: `${this.models["Bar"][0]}-mtl`
-                        });
-                        model.setAttribute('position', {
-                            y: 0
-                        });
-                        model.setAttribute('scale', {
-                            x: this.models["Bar"][1],
-                            y: this.models["Bar"][1],
-                            z: this.models["Bar"][1]
-                        });
+                    entity.setAttribute('scale', {
+                        x: 10,
+                        y: 10,
+                        z: 10
+                    });
 
-                        const sign = document.createElement('a-plane');
-                        sign.setAttribute('width', 5);
-                        sign.setAttribute('height', 4);
-                        sign.setAttribute('look-at', '[camera]');
-                        sign.setAttribute('material', {
-                            color: 'black'
-                        });
-                        sign.setAttribute('position', {
-                            x: 0,
-                            y: 4,
-                            z: 0
-                        });
+                    entity.setAttribute('position', {
+                        y: peak.geometry.coordinates[2]
+                    });
 
-                        sign.setAttribute('text', {
-                            value: obj.properties.name + "\n" + type,
-                            wrapCount: 10,
-                            baseline: 'center'
-                        });
+                    entity.appendChild(model);
+                    entity.appendChild(sign);
 
-                        entity.setAttribute('gps-projected-entity-place', {
-                            latitude: obj.geometry.coordinates[1],
-                            longitude: obj.geometry.coordinates[0]
-                        });
+                    entity.addEventListener('click', e => {
+                        if (peak.properties.website != undefined) {
+                            win = window.open(peak.properties.website);
+                            win.focus();
+                        }
+                        else {
+                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                        }
+                    });
 
-                        entity.setAttribute('scale', {
-                            x: 10,
-                            y: 10,
-                            z: 10
-                        });
+                    this.el.sceneEl.appendChild(entity);
+                }
 
-                        entity.appendChild(model);
-                        entity.appendChild(sign);
+                else if (type == "Bar" && peak.properties.name != undefined) {
+                    model.setAttribute('obj-model', {
+                        obj: this.models["Bar"][0],
+                        mtl: `${this.models["Bar"][0]}-mtl`
+                    });
+                    model.setAttribute('position', {
+                        y: 0
+                    });
+                    model.setAttribute('scale', {
+                        x: this.models["Bar"][1],
+                        y: this.models["Bar"][1],
+                        z: this.models["Bar"][1]
+                    });
 
-                        entity.addEventListener('click', e => {
-                            if (obj.properties.website != undefined) {
-                                win = window.open(obj.properties.website);
-                                win.focus();
-                            }
-                            else {
-                                alert("No website available...")
-                            }
-                        });
+                    const sign = document.createElement('a-plane');
+                    sign.setAttribute('width', 5);
+                    sign.setAttribute('height', 4);
+                    sign.setAttribute('look-at', '[camera]');
+                    sign.setAttribute('material', {
+                        color: 'black'
+                    });
+                    sign.setAttribute('position', {
+                        x: 0,
+                        y: 4,
+                        z: 0
+                    });
 
-                        this.el.sceneEl.appendChild(entity);
-                    }
+                    sign.setAttribute('text', {
+                        value: peak.properties.name + "\n" + type,
+                        wrapCount: 10,
+                        baseline: 'center'
+                    });
 
-                    else {
-                        // console.log("Type " + type + " Name " + obj.properties.name)
-                    }
-                });
-            }
-        })
+                    entity.setAttribute('gps-projected-entity-place', {
+                        latitude: peak.geometry.coordinates[1],
+                        longitude: peak.geometry.coordinates[0]
+                    });
+
+                    entity.setAttribute('scale', {
+                        x: 10,
+                        y: 10,
+                        z: 10
+                    });
+
+                    entity.setAttribute('position', {
+                        y: peak.geometry.coordinates[2]
+                    });
+
+                    entity.appendChild(model);
+                    entity.appendChild(sign);
+
+                    entity.addEventListener('click', e => {
+                        if (peak.properties.website != undefined) {
+                            win = window.open(peak.properties.website);
+                            win.focus();
+                        }
+                        else {
+                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                        }
+                    });
+
+                    this.el.sceneEl.appendChild(entity);
+                }
+
+                else {
+                    // console.log("Type " + type + " Name " + obj.properties.name)
+                }
+            });
+        });
     }
 });
 
@@ -227,3 +253,15 @@ navigator.geolocation.watchPosition(pos => {
     e => { document.getElementById('position').innerHTML = `<strong>An error occurred: ${e}</strong>`; },
     { enableHighAccuracy: true, maximumAge: 5000 }
 );
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+        .then(registration => {
+            console.log('Registered successfully.');
+        })
+        .catch(e => {
+            console.error(`Service worker registration failed: ${e}`);
+        });
+} else {
+    alert('Sorry, offline functionality not available, please update your browser!');
+}
