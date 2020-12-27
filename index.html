@@ -7,6 +7,7 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="./bundle.js"></script>
+    <link rel='manifest' href='main.webmanifest' />
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -25,7 +26,7 @@
             </a-assets>
 
             <a-camera id="camera" gps-projected-camera rotation-reader></a-camera>
-            <a-entity terrarium-dem='zoom: 24; url: https://hikar.org/webapp/proxy.php?x={x}&y={y}&z={z}'
+            <a-entity terrarium-dem='zoom: 12; url: https://hikar.org/webapp/proxy.php?x={x}&y={y}&z={z}'
                 osm3d='url: https://hikar.org/fm/ws/tsvr.php?x={x}&y={y}&z={z}&amp;poi=all&amp;outProj=4326' initfunc>
             </a-entity>
         </a-scene>

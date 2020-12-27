@@ -2,7 +2,8 @@ const CACHE_NAME = 'cache1';
 const urlsToCache = [
     'index.html',
     'bundle.js',
-    'styles.css'
+    'styles.css',
+    'images/JAB-Logo.png'
 ];
 
 self.addEventListener('install', ev => {

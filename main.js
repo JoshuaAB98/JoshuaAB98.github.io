@@ -4,6 +4,8 @@ AFRAME.registerComponent('initfunc', {
 
     init: async function () {
 
+        console.log("Part 0")
+
         window.addEventListener('gps-camera-update-position', e => {
             this.el.setAttribute('terrarium-dem', {
                 lat: e.detail.position.latitude,
@@ -23,8 +25,6 @@ AFRAME.registerComponent('initfunc', {
                 Restaurant: ['#burger', 0.02]
             };
 
-            console.log("Part 1")
-
             e.detail.pois.forEach(obj => {
 
                 const entity = document.createElement('a-entity');
@@ -42,8 +42,6 @@ AFRAME.registerComponent('initfunc', {
                 } else {
                     type = "Unknown"
                 }
-
-                console.log("Part 2")
 
                 if (type == "Cafe" && obj.properties.name.includes('Cafe')) {
                     model.setAttribute('obj-model', {
@@ -246,8 +244,6 @@ AFRAME.registerComponent('initfunc', {
                 else {
                     // console.log("Type " + type + " Name " + obj.properties.name)
                 }
-
-                console.log("Part 3")
 
             });
         });
