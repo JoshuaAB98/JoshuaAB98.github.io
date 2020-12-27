@@ -1,0 +1,21 @@
+{
+    "name": "Joshua WebApp",
+    "short_name": "WebApp",
+    "description": "Joshua's web app, developed using AR.js and A-Frame.",
+    "icons": [
+        {
+            "src": "images/JAB-Logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/JAB_Logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "index.html",
+    "display":  "fullscreen",
+    "theme_color" : "#87CEEB",
+    "background_color": "#87CEEB"
+}

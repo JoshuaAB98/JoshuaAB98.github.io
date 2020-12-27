@@ -103,7 +103,7 @@ AFRAME.registerComponent('initfunc', {
                             win.focus();
                         }
                         else {
-                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                            alert("No website available...")
                         }
                     });
 
@@ -168,7 +168,7 @@ AFRAME.registerComponent('initfunc', {
                             win.focus();
                         }
                         else {
-                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                            alert("No website available...")
                         }
                     });
 
@@ -232,7 +232,7 @@ AFRAME.registerComponent('initfunc', {
                             win.focus();
                         }
                         else {
-                            alert("No website available..." + entity.getDOMAttribute('gps-projected-entity-place'))
+                            alert("No website available...")
                         }
                     });
 
