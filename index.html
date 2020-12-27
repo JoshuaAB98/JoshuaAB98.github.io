@@ -13,9 +13,12 @@
 
 <body>
     <div id='position'></div>
+    <div>
+        <button class="add-button">Add to home screen</button>
+    </div>
     <div id='vidContainer'>
-        <a-scene vr-mode-ui="enabled: true" arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;'
-            renderer='antialias: true; alpha: true' cursor='rayOrigin: mouse'>
+        <a-scene arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;'
+            renderer='antialias: true; alpha: true' cursor='rayOrigin: mouse' embedded style='width:50%; height:600px; border: 1px'>
             <a-assets>
                 <a-asset-item src='./assets/coffee-cup.obj' id='coffee-cup'></a-asset-item>
                 <a-asset-item src='./assets/coffee-cup-mtl.mtl' id='coffee-cup-mtl'></a-asset-item>
