@@ -17,8 +17,6 @@ self.addEventListener('install', ev => {
 });
 
 self.addEventListener('activate', ev => {
-    // Force service worker to "take over" your page immediately, rather than
-    // on reload
     console.log('Claiming control...');
     return self.clients.claim();
 });
