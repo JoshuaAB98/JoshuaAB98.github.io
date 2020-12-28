@@ -277,8 +277,12 @@ const addBtn = document.getElementById('add-button');
     e.preventDefault();
     // Stash the event so it can be triggered later.
     deferredPrompt = e;
+    // Update UI to notify the user they can add to home screen
+    document.getElementById('add-button').style.display = 'block';
 
     addBtn.addEventListener('click', (e) => {
+        // hide our user interface that shows our A2HS button
+        document.getElementById('add-button').style.display = 'none';
         // Show the prompt
         deferredPrompt.prompt();
         // Wait for the user to respond to the prompt
