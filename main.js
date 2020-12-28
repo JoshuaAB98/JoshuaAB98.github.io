@@ -35,13 +35,10 @@ AFRAME.registerComponent('initfunc', {
 
                 if (obj.properties.featuretype === "unknown" && obj.properties.name != undefined) {
                     type = "Cafe"
-                    // console.log("Name " + obj.properties.name + " Lat " + obj.geometry.coordinates[1] + " Lon " + obj.geometry.coordinates[0] + " Elevation " + obj.geometry.coordinates[2])
                 } else if (obj.properties.featuretype == "bar" || obj.properties.featuretype == "pub") {
                     type = "Bar"
-                    // console.log("Name " + obj.properties.name + " Lat " + obj.geometry.coordinates[1] + " Lon " + obj.geometry.coordinates[0] + " Elevation " + obj.geometry.coordinates[2])
                 } else if (obj.properties.featuretype == "restaurant") {
                     type = "Restaurant"
-                    // console.log("Name " + obj.properties.name + " Lat " + obj.geometry.coordinates[1] + " Lon " + obj.geometry.coordinates[0] + " Elevation " + obj.geometry.coordinates[2])
                 } else {
                     type = "Unknown"
                 }
