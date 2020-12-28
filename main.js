@@ -83,8 +83,6 @@ AFRAME.registerComponent('initfunc', {
                         longitude: obj.geometry.coordinates[0]
                     });
 
-                    entity.setAttribute('elevation', obj.geometry.coordinates[2])
-
                     entity.setAttribute('scale', {
                         x: 10,
                         y: 10,
