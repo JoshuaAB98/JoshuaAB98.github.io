@@ -7,6 +7,11 @@
             "src": "images/JAB-Logo.png",
             "sizes": "100x100",
             "type": "image/png"
+        },
+        {
+            "src": "images/JAB_Logo.png",
+            "sizes": "3472x3472",
+            "type": "image/png"
         }
     ],
     "start_url": "index.html",

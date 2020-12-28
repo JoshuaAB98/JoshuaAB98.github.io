@@ -3,7 +3,8 @@ const urlsToCache = [
     'index.html',
     'bundle.js',
     'styles.css',
-    'images/JAB-Logo.png'
+    'images/JAB-Logo.png',
+    'main.webmanifest'
 ];
 
 self.addEventListener('install', ev => {

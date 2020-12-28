@@ -14,10 +14,11 @@
 <body>
     <div id='position'></div>
 
-    <div id='vidContainer'>
-        <button class="add-button">Add to home screen</button>
+    <div id='scene'>
+        <button id='add-button' class="add-button">Add to home screen</button>
         <a-scene arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;'
-            renderer='antialias: true; alpha: true' cursor='rayOrigin: mouse' embedded style='width:80%; height:800px; border: 1px'>
+            renderer='antialias: true; alpha: true' cursor='rayOrigin: mouse' embedded
+            style='width:1280px; height:720px; border: 1px'>
             <a-assets>
                 <a-asset-item src='./assets/coffee-cup.obj' id='coffee-cup'></a-asset-item>
                 <a-asset-item src='./assets/coffee-cup-mtl.mtl' id='coffee-cup-mtl'></a-asset-item>
