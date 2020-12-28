@@ -83,14 +83,14 @@ AFRAME.registerComponent('initfunc', {
                         longitude: obj.geometry.coordinates[0]
                     });
 
+                    entity.setAttribute('position', {
+                        y: obj.geometry.coordinates[2]
+                    });
+
                     entity.setAttribute('scale', {
                         x: 10,
                         y: 10,
                         z: 10
-                    });
-
-                    entity.setAttribute('position', {
-                        y: obj.geometry.coordinates[2]
                     });
 
                     entity.appendChild(model);
@@ -148,14 +148,14 @@ AFRAME.registerComponent('initfunc', {
                         longitude: obj.geometry.coordinates[0]
                     });
 
+                    entity.setAttribute('position', {
+                        y: obj.geometry.coordinates[2]
+                    });
+
                     entity.setAttribute('scale', {
                         x: 10,
                         y: 10,
                         z: 10
-                    });
-
-                    entity.setAttribute('position', {
-                        y: obj.geometry.coordinates[2]
                     });
 
                     entity.appendChild(model);
@@ -212,14 +212,14 @@ AFRAME.registerComponent('initfunc', {
                         longitude: obj.geometry.coordinates[0]
                     });
 
+                    entity.setAttribute('position', {
+                        y: obj.geometry.coordinates[2]
+                    });
+
                     entity.setAttribute('scale', {
                         x: 10,
                         y: 10,
                         z: 10
-                    });
-
-                    entity.setAttribute('position', {
-                        y: obj.geometry.coordinates[2]
                     });
 
                     entity.appendChild(model);
