@@ -30,7 +30,7 @@ AFRAME.registerComponent('initfunc', {
                 const entity = document.createElement('a-entity');
                 const model = document.createElement('a-entity');
 
-                if (obj.properties.featuretype === "unknown" && obj.properties.name != undefined) {
+                if (obj.properties.featuretype === "unknown" || obj.properties.featuretype == "cafe" && obj.properties.name != undefined) {
                     type = "Cafe"
                 } else if (obj.properties.featuretype == "bar" || obj.properties.featuretype == "pub") {
                     type = "Bar"
