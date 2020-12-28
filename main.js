@@ -14,6 +14,8 @@ AFRAME.registerComponent('initfunc', {
         this.el.addEventListener('elevation-available', e => {
             camera = document.getElementById("camera")
             camera.object3D.position.y = e.detail.elevation + 1.6;
+            document.getElementById('elevation').innerHTML = `<strong>Your Elevation is: ${e.detail.elevation.toFixed(3)}</strong>`;
+
         });
 
         this.el.addEventListener('osm-data-loaded', e => {
