@@ -4,6 +4,7 @@ const urlsToCache = [
     'bundle.js',
     'styles.css',
     'images/JAB-Logo.png',
+    'images/JAB_Logo.png',
     'main.webmanifest'
 ];
 

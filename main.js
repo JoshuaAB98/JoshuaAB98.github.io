@@ -5,20 +5,17 @@ AFRAME.registerComponent('initfunc', {
     init: function () {
 
         this.loaded = false;
-        window.addEventListener('gps-camera-update-position', async(e) => {
-            window.addEventListener('gps-camera-update-position', e => {
-                this.el.setAttribute('terrarium-dem', {
-                    lat: e.detail.position.latitude,
-                    lon: e.detail.position.longitude
-                })
+        window.addEventListener('gps-camera-update-position', async (e) => {
+            this.el.setAttribute('terrarium-dem', {
+                lat: e.detail.position.latitude,
+                lon: e.detail.position.longitude
             });
         });
 
         this.el.addEventListener('elevation-available', e => {
             camera = document.getElementById("camera")
             camera.object3D.position.y = e.detail.elevation + 1.6;
-            document.getElementById('elevation').innerHTML = `<strong>Your Elevation is: ${e.detail.elevation.toFixed(3)}</strong>`;
-
+            document.getElementById('elevation').innerHTML = `<strong>Your Elevation is: ${e.detail.elevation.toFixed(1)} metres above sea level</strong>`;
         });
 
         this.el.addEventListener('osm-data-loaded', e => {
@@ -74,7 +71,7 @@ AFRAME.registerComponent('initfunc', {
                     });
 
                     sign.setAttribute('text', {
-                        value: obj.properties.name + "\n" + type,
+                        value: obj.properties.name + "\n" + type + "\n" + obj.geometry.coordinates[2].toFixed(1) + " MSL",
                         wrapCount: 10,
                         baseline: 'center'
                     });
@@ -141,7 +138,7 @@ AFRAME.registerComponent('initfunc', {
                     });
 
                     sign.setAttribute('text', {
-                        value: obj.properties.name + "\n" + type,
+                        value: obj.properties.name + "\n" + type + "\n" + obj.geometry.coordinates[2].toFixed(1) + " MSL",
                         wrapCount: 10,
                         baseline: 'center'
                     });
@@ -205,7 +202,7 @@ AFRAME.registerComponent('initfunc', {
                     });
 
                     sign.setAttribute('text', {
-                        value: obj.properties.name + "\n" + type,
+                        value: obj.properties.name + "\n" + type + "\n" + obj.geometry.coordinates[2].toFixed(1) + " MSL",
                         wrapCount: 10,
                         baseline: 'center'
                     });
@@ -273,7 +270,7 @@ let deferredPrompt;
 
 
 window.addEventListener('beforeinstallprompt', (e) => {
-const addBtn = document.getElementById('add-button');
+    const addBtn = document.getElementById('add-button');
     console.log("User has been prompted to install")
     // Prevent Chrome 67 and earlier from automatically showing the prompt
     e.preventDefault();
