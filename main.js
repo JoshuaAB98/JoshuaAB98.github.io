@@ -2,13 +2,16 @@ require('aframe-osm-3d');
 
 AFRAME.registerComponent('initfunc', {
 
-    init: async function () {
+    init: function () {
 
-        window.addEventListener('gps-camera-update-position', e => {
-            this.el.setAttribute('terrarium-dem', {
-                lat: e.detail.position.latitude,
-                lon: e.detail.position.longitude
-            })
+        this.loaded = false;
+        window.addEventListener('gps-camera-update-position', async(e) => {
+            window.addEventListener('gps-camera-update-position', e => {
+                this.el.setAttribute('terrarium-dem', {
+                    lat: e.detail.position.latitude,
+                    lon: e.detail.position.longitude
+                })
+            });
         });
 
         this.el.addEventListener('elevation-available', e => {
