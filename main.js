@@ -10,6 +10,7 @@ AFRAME.registerComponent('initfunc', {
                 lat: e.detail.position.latitude,
                 lon: e.detail.position.longitude
             });
+            document.getElementById('alert').innerHTML = `<strong>Data Downloading...</strong>`;
         });
 
         this.el.addEventListener('elevation-available', e => {
@@ -25,6 +26,7 @@ AFRAME.registerComponent('initfunc', {
                 Restaurant: ['#burger', 0.02]
             };
 
+            document.getElementById('alert').innerHTML = `<strong>Points of Interest Downloaded</strong>`;
             e.detail.pois.forEach(obj => {
 
                 const entity = document.createElement('a-entity');
