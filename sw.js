@@ -7,12 +7,6 @@ const urlsToCache = [
     'images/JAB_Logo.png',
     'ark_coffee.png',
     'burger.jpg',
-    'beer-bottle-mtl.mtl',
-    'beer-bottle.obj',
-    'burger-mtl.mtl',
-    'burger.obj',
-    'coffee-cup-mtl.mtl',
-    'coffee-cup.obj',
     'main.webmanifest'
 ];
 
