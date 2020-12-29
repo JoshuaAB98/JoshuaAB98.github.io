@@ -5,6 +5,8 @@ const urlsToCache = [
     'styles.css',
     'images/JAB-Logo.png',
     'images/JAB_Logo.png',
+    'ark_coffee.png',
+    'burger.jpg',
     'main.webmanifest'
 ];
 
