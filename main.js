@@ -23,7 +23,7 @@ AFRAME.registerComponent('initfunc', {
             this.models = {
                 Cafe: ['#coffee-cup', 15],
                 Bar: ['#beer-bottle', 0.3],
-                Restaurant: ['#burger', 0.02]
+                Restaurant: ['#burger', 0.02],
             };
 
             document.getElementById('alert').innerHTML = `<strong>Points of Interest Downloaded</strong>`;
@@ -38,7 +38,7 @@ AFRAME.registerComponent('initfunc', {
                     type = "Bar"
                 } else if (obj.properties.featuretype == "restaurant") {
                     type = "Restaurant"
-                } else if (obj.properties.featuretype == "cafe" && obj.properties.name != undefined){
+                } else if (obj.properties.featuretype == "cafe" && obj.properties.name != undefined) {
                     type = "Cafe"
                 } else {
                     type = "Unknown"
@@ -61,24 +61,49 @@ AFRAME.registerComponent('initfunc', {
                         z: this.models[type][1]
                     });
 
-                    const sign = document.createElement('a-plane');
-                    sign.setAttribute('width', 5);
-                    sign.setAttribute('height', 4);
-                    sign.setAttribute('look-at', '[camera]');
-                    sign.setAttribute('material', {
-                        color: 'black'
+                    const sign = document.createElement('a-entity');
+                    const text = document.createElement('a-entity');
+
+                    text.setAttribute('text', {
+                        value: obj.properties.name + "\n" + type + "\n",
+                        color: 'white',
+                        width: 2,
+                        xOffset: 0.25,
+                        wrapCount: 12
                     });
+
+                    text.setAttribute('position', {
+                        x: 0,
+                        y: 0.1,
+                        z: 0.2
+                    });
+
+                    text.setAttribute('scale', {
+                        x: 0.2,
+                        y: 0.4,
+                        z: 1
+                    });
+
+                    text.setAttribute('look-at', '[gps-projected-camera]');
+
+                    sign.setAttribute('scale', {
+                        x: 11,
+                        y: 2,
+                        z: 1
+                    });
+
+                    sign.setAttribute('obj-model', {
+                        obj: '#sign',
+                        mtl: '#sign-mtl'
+                    });
+
                     sign.setAttribute('position', {
                         x: 0,
-                        y: 4,
+                        y: 3,
                         z: 0
                     });
 
-                    sign.setAttribute('text', {
-                        value: obj.properties.name + "\n" + type + "\n" + obj.geometry.coordinates[2].toFixed(1) + " MSL",
-                        wrapCount: 10,
-                        baseline: 'center'
-                    });
+                    sign.setAttribute('look-at', '[gps-projected-camera]');
 
                     entity.setAttribute('gps-projected-entity-place', {
                         latitude: obj.geometry.coordinates[1],
@@ -95,6 +120,7 @@ AFRAME.registerComponent('initfunc', {
                         z: 10
                     });
 
+                    sign.appendChild(text)
                     entity.appendChild(model);
                     entity.appendChild(sign);
 
@@ -104,7 +130,7 @@ AFRAME.registerComponent('initfunc', {
                             win.focus();
                         }
                         else {
-                            alert("No website available...")
+                            alert(obj.properties.name + " Has no website available...")
                         }
                     });
 
@@ -126,24 +152,49 @@ AFRAME.registerComponent('initfunc', {
                         y: -1.6
                     });
 
-                    const sign = document.createElement('a-plane');
-                    sign.setAttribute('width', 5);
-                    sign.setAttribute('height', 4);
-                    sign.setAttribute('look-at', '[camera]');
-                    sign.setAttribute('material', {
-                        color: 'black'
+                    const sign = document.createElement('a-entity');
+                    const text = document.createElement('a-entity');
+
+                    text.setAttribute('text', {
+                        value: obj.properties.name + "\n" + type + "\n",
+                        color: 'white',
+                        width: 2,
+                        xOffset: 0.25,
+                        wrapCount: 12
                     });
+
+                    text.setAttribute('position', {
+                        x: 0,
+                        y: 0.1,
+                        z: 0.2
+                    });
+
+                    text.setAttribute('scale', {
+                        x: 0.2,
+                        y: 0.4,
+                        z: 1
+                    });
+
+                    text.setAttribute('look-at', '[gps-projected-camera]');
+
+                    sign.setAttribute('scale', {
+                        x: 11,
+                        y: 2,
+                        z: 1
+                    });
+
+                    sign.setAttribute('obj-model', {
+                        obj: '#sign',
+                        mtl: '#sign-mtl'
+                    });
+
                     sign.setAttribute('position', {
                         x: 0,
-                        y: 4,
+                        y: 3,
                         z: 0
                     });
 
-                    sign.setAttribute('text', {
-                        value: obj.properties.name + "\n" + type + "\n" + obj.geometry.coordinates[2].toFixed(1) + " MSL",
-                        wrapCount: 10,
-                        baseline: 'center'
-                    });
+                    sign.setAttribute('look-at', '[gps-projected-camera]');
 
                     entity.setAttribute('gps-projected-entity-place', {
                         latitude: obj.geometry.coordinates[1],
@@ -160,6 +211,7 @@ AFRAME.registerComponent('initfunc', {
                         z: 10
                     });
 
+                    sign.appendChild(text)
                     entity.appendChild(model);
                     entity.appendChild(sign);
 
@@ -190,24 +242,49 @@ AFRAME.registerComponent('initfunc', {
                         z: this.models["Bar"][1]
                     });
 
-                    const sign = document.createElement('a-plane');
-                    sign.setAttribute('width', 5);
-                    sign.setAttribute('height', 4);
-                    sign.setAttribute('look-at', '[camera]');
-                    sign.setAttribute('material', {
-                        color: 'black'
+                    const sign = document.createElement('a-entity');
+                    const text = document.createElement('a-entity');
+
+                    text.setAttribute('text', {
+                        value: obj.properties.name + "\n" + type + "\n",
+                        color: 'white',
+                        width: 2,
+                        xOffset: 0.25,
+                        wrapCount: 12
                     });
+
+                    text.setAttribute('position', {
+                        x: 0,
+                        y: 0.1,
+                        z: 0.2
+                    });
+
+                    text.setAttribute('scale', {
+                        x: 0.2,
+                        y: 0.4,
+                        z: 1
+                    });
+
+                    text.setAttribute('look-at', '[gps-projected-camera]');
+
+                    sign.setAttribute('scale', {
+                        x: 11,
+                        y: 2,
+                        z: 1
+                    });
+
+                    sign.setAttribute('obj-model', {
+                        obj: '#sign',
+                        mtl: '#sign-mtl'
+                    });
+
                     sign.setAttribute('position', {
                         x: 0,
-                        y: 4,
+                        y: 3,
                         z: 0
                     });
 
-                    sign.setAttribute('text', {
-                        value: obj.properties.name + "\n" + type + "\n" + obj.geometry.coordinates[2].toFixed(1) + " MSL",
-                        wrapCount: 10,
-                        baseline: 'center'
-                    });
+                    sign.setAttribute('look-at', '[gps-projected-camera]');
 
                     entity.setAttribute('gps-projected-entity-place', {
                         latitude: obj.geometry.coordinates[1],
@@ -224,6 +301,7 @@ AFRAME.registerComponent('initfunc', {
                         z: 10
                     });
 
+                    sign.appendChild(text)
                     entity.appendChild(model);
                     entity.appendChild(sign);
 
