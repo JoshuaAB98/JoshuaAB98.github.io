@@ -8,6 +8,26 @@ body
     margin-left: 0%;
 }
 
+#info
+{
+    background: black;
+    opacity: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+    color: white;
+    padding: 1%;
+    margin: 5px;
+    border-radius: 4%;
+    font-weight: bold;
+}
+
+#wrapper
+{
+    position: relative;
+}
+
 .add-button {
     margin-bottom: 2%;
     margin-top: 2%;

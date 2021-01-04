@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div style="position: relative;">
+    <div id="wrapper">
         <a-scene arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;'
             renderer='antialias: true; alpha: true' cursor='rayOrigin: mouse'>
             <a-assets>
@@ -32,12 +32,12 @@
                 osm3d='url: https://hikar.org/fm/ws/tsvr.php?x={x}&y={y}&z={z}&amp;poi=all&amp;outProj=4326' initfunc>
             </a-entity>
         </a-scene>
-        <div style="position:absolute; top:0px; left:0px; z-index:1000;">
+        <div id="info">
             <!-- Overlay content here -->
             <button id='add-button' class="add-button">Add to home screen</button>
-            <div id='position'></div>
-            <div id='elevation'></div>
-            <div id='alert'></div>
+            <p id='position'></p>
+            <p id='elevation'></p>
+            <p id='alert'></p>
         </div>
     </div>
 </body>
