@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+<ul class="horizontal">
+    <li><a href="stock">Home</a></li>
+    <li><a class="active" href="profit">Profit</a></li>
+</ul>
+
+<h1>Profit Page</h1>
+
+<form action="/profit" method="post">
+    <label for="profit">Intended minimum profit ($):</label>
+    <input type="number" id="profit" name="profit" min="1" max="500" required><br><br>
+    <label for="per">Choose a time period:</label>
+    <select id="per" name="per" size="1" required>
+        <option selected disabled>Choose a time period</option>
+        <option value=1>Day</option>
+        <option value=7>Week</option>
+        <option value=30>Month</option>
+        <option value=90>Quarter</option>
+    </select><br><br>
+    <button class="button" style="vertical-align:middle"><span>Submit </span></button>
+</form>
+
+{% endblock %}

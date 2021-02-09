@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+</head>
+
+
+<body>
+<div class="content">
+{% block body %}{% endblock %}
+
+
+</div>
+
+
+<footer class="footer">
+    {% block footer %}{% endblock %}
+    <p>Author: Joshua Alsop-Barrell</p>
+</footer>
+</body>
+
+</html>
