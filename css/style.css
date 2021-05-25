@@ -74,3 +74,26 @@
   .btn:hover {
     opacity: 0.7;
   }
+
+  footer {
+    text-align: center;
+    padding: 3px;
+    background-color: var(--color1);
+    color: var(--color5);
+  }
+
+  .profileImage:hover {
+    content: url(assets/twitter_color.svg);
+    transform: scale(1.3);
+    transition: 0.3s ease-in-out
+  }
+
+  .banner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  }
+
+  .relContainer {
+    position: relative;
+  }
